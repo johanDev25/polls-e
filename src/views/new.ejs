@@ -1,0 +1,35 @@
+<%- layout('layouts/main.ejs') %>
+<div class="card col-md-6 offset-md-3 border-success">
+  <div class="card-header border-success">
+    Create your Quest
+  </div>
+  <div class="card-body">
+    <form action="/new" method="post">
+        <input type="hidden" name="user" value=<%= user.email %>>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" name="title" aria-describedby="title" required>
+      </div>
+      <div class="form-group">
+         <label for="quest">Question</label>
+         <textarea class="form-control" id="quest" name="quest" rows="3" required></textarea>
+       </div>
+       <div class="form-group row">
+        <label for="option1" class="col-sm-2 col-form-label">Opt 1</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="option1" name="options[0][name]" required>
+        </div>
+        <label for="option2" class="col-sm-2 col-form-label">Opt 2</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="option2" name="options[1][name]" required>
+        </div>
+        <label for="option3" class="col-sm-2 col-form-label">Opt 3</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="option3" name="options[2][name]" required>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success offset-4">Submit Poll</button>
+    </form>
+  </div>
+</div>

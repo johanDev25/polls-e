@@ -1,10 +1,20 @@
 <%- layout('layouts/main.ejs') %>
-
-<form class="" action="/signup" method="post">
-   <input type="email" name="email" placeholder="Inser Email">
-   <input type="password" name="password" placeholder="Insert Password">
-
-   <button type="submit" name="button">
-      Singup
-   </button>
-</form>
+<div class="card text-center col-md-4 offset-4 border-primary">
+  <form class="form-signin" action="/signup" method="post">
+  <img class="mb-4" src="https://www.pinclipart.com/picdir/middle/164-1640714_user-symbol-interface-contact-phone-set-add-sign.png" alt="" width="72" height="72">
+  <h1 class="h3 mb-3 font-weight-normal"><strong>Please sign up</strong></h1>
+  <hr/>
+  <label for="inputEmail" class="sr-only">Email address</label>
+  <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required autofocus>
+  <br>
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+  <div class="">
+    <hr/>
+    <small><strong>Do you already have an account? </strong> <a href="/signin">Click Here</a></small>
+    <hr/>
+  </div>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+  <p class="mt-5 mb-3 text-muted">Encuestas-Epress</p>
+  </form>
+</div>

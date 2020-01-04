@@ -1,0 +1,26 @@
+<%- layout('layouts/main.ejs') %>
+  <div class="card text-center col-md-8 offset-2">
+    <div class="card-header">
+      Vote
+    </div>
+    <div class="card-body">
+      <h5 class="card-title text-uppercase"><%= currentPoll.title %></h5>
+      <p class="card-text"><%= currentPoll.quest %></p>
+      <hr/>
+      <form class="" action="/vote/<%= currentPoll.id %>" method="post">
+        <% currentPoll.options.forEach(function(poll, i){ %>
+          <div class="form-check">
+          <input class="form-check-input" type="radio" name="options" id="item-<%= i %>" value=<%= i %>>
+          <label class="form-check-label" for="item-<%= i %>">
+            <%= poll.name %>
+            <hr/>
+          </label>
+        </div>
+        <% }); %>
+
+    <div class="card-footer text-muted">
+      <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+    </div>
+    </div>
+  </div>

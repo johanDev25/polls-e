@@ -1,2 +1,52 @@
 <%- layout('layouts/main.ejs') %>
-<h1>Hola mundo</h1>
+<div class="container">
+  <div class="row">
+    <% if (polls.length > 0) { %>
+    <% polls.forEach(function(poll){ %>
+      <div class="card text-center col-sm-4">
+        <div class="card-header">
+          <% if (user) { %>
+           <h6 class="card-text"> You are the owner</h6>
+           <%}else{%>
+            <h6 class="card-text"> Created By <%= poll.user %></h6>
+            <%} %>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= poll.title %></h5>
+          <p class="card-text"><%= poll.quest %></p>
+        </div>
+        <% if (user) { %>
+          <% if (user.email === poll.user) { %>
+          <a class="btn btn-outline-danger" onclick="btndelete('<%= poll.id %>', event)">Delete</a>
+          <a class="btn btn-primary" href="/<%= poll.id %>/show" role="button">Result</a>
+          <%}else{%>
+            <a class="btn btn-primary" href="/vote/<%= poll.id %>" role="button">Vote</a>
+          <%} %>
+        <% }else{%>
+            <a class="btn btn-primary" href="/vote/<%= poll.id %>" role="button">Vote</a>
+        <%} %>
+        <div class="card-footer text-muted">
+          <%= poll.createdAt %>
+        </div>
+      </div>
+    <% }); %>
+    <% }else{%>
+      <div class="col-md-5 offset-4 mt-5">
+              <h2>No polls to showing up here</h2>
+      </div>
+    <%} %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function btndelete(id, e){
+    e.preventDefault();
+      if(confirm("Are you sure to delete this note?")) {
+        fetch("/" + id, {
+          method: "DELETE"
+        }).then(response => {
+          window.location= "/" + id +"/delete";
+        });
+      }
+  }
+</script>

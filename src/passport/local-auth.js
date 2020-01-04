@@ -2,11 +2,11 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const User = require('../models/user');
-//usamos el ID para intercambiar entre paginas
+
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
-//se consulta el usuario en la base de datos
+
 passport.deserializeUser(async (id, done) => {
   const user = await User.findById(id);
   done(null, user);
@@ -24,11 +24,8 @@ passport.use('local-signup', new LocalStrategy({
   } else {
     const newUser = new User();
     newUser.email = email;
-    //se usa el metodo del modelo para encriptar
-    //la contrase;a al momento de guardar
     newUser.password = newUser.encryptPassword(password);
     await newUser.save();
-      //termina el proceso y envia los datos del usuario autenticado
     done(null, newUser);
   }
 }));
@@ -46,4 +43,18 @@ passport.use('local-signin', new LocalStrategy({
     return done(null, false, req.flash('signinMessage', 'Incorrect Password'));
   }
   return done(null, user);
+}));
+
+passport.use('validate-poll', new LocalStrategy({
+  titlepollField: 'title',
+  questpollField: 'quest',
+  optionspollFlied: 'options',
+  passReqToCallback: true
+}, async (req, title, quest, options, done) => {
+    const newPoll = new Poll();
+    newPoll.title = title;
+    newPoll.quest = quest;
+    newPoll.options = options;
+    await newPoll.save();
+    done(null, newPoll);
 }));

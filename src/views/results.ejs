@@ -1,0 +1,66 @@
+<%- layout('layouts/main.ejs') %>
+<div class="container">
+  <div class="row">
+    <div class="jumbotron col-md-12 text-center">
+      <div class="bg-ligth clearfix">
+        <div class="float-right col-sm-1">
+                <h6>Share this poll</h6>
+          <a type="button" class="share-btn" data-toggle="modal" data-target="#exampleModal">
+            <i class="fas fa-share-alt-square"></i>
+          </a>
+          <div id="fb-root"></div>
+          <a class="fb-share-button mb-2"
+          data-href="https://www.your-domain.com/<%= currentPoll.id %>"
+          data-layout="button_count">
+        </a>
+          <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false"><i class="fab fa-facebook"></i></a>
+        </div>
+        <div class="float-center col-sm-11">
+          <h1 class="display-4">Results about (<strong class="text-uppercase"><%= currentPoll.title %></strong>)</h1>
+          <p class="lead"><%= currentPoll.quest %></p>
+        </div>
+    </div>
+      <hr class="my-4">
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Share your Link Poll</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>https//:www.heroku.com/<%= currentPoll.id %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card text-center col-sm-8 offset-2 result">
+      <div class="card-body">
+        <h5 class="card-title text-uppercase"><%= currentPoll.title %></h5>
+        <% currentPoll.options.forEach(function(poll){ %>
+          <p class="text-left"><%= poll.name %><small>(<%= poll.count %>)</small></p>
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-info"
+            role="progressbar" style="width: <%= poll.count %>%" aria-valuenow=<%= poll.name %>
+            aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
