@@ -15,14 +15,15 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 app.set('port', process.env.PORT || 3000);
-
+app.set('trust proxy', 1)
 
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: true}));
 app.use(require('express-session')({
   secret: 'mysecretjhsession',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: true,
+  cookie: { secure: true }
 }));
 
 app.use(flash());
