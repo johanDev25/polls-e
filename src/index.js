@@ -22,8 +22,14 @@ app.use(express.urlencoded({extended: true}));
 app.use(session({
   secret: 'mysecretjhsession',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: true
 }));
+app.use(function(req,res,next){
+if(!req.session){
+    return next(new Error('Oh no')) //handle error
+}
+next() //otherwise continue
+});
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
