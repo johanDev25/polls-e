@@ -19,17 +19,12 @@ app.set('port', process.env.PORT || 3000);
 
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: true}));
-app.use(session({
+app.use(require('express-session')({
   secret: 'mysecretjhsession',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: false
 }));
-app.use(function(req,res,next){
-if(!req.session){
-    return next(new Error('Oh no')) //handle error
-}
-next() //otherwise continue
-});
+
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
