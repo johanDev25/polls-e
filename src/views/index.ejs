@@ -5,11 +5,15 @@
     <% polls.forEach(function(poll){ %>
       <div class="card text-center col-sm-4">
         <div class="card-header">
-          <% if (user) { %>
+         <% if (user) { %>
+          <% if (user.email === poll.user) { %>
            <h6 class="card-text"> You are the owner</h6>
-           <%}else{%>
-            <h6 class="card-text"> Created By <%= poll.user %></h6>
-            <%} %>
+           <%}else{ %>
+             <h6 class="card-text"> Created By <%= poll.user %></h6>
+             <%} %>
+            <%}else{ %>
+              <h6 class="card-text"> Created By <%= poll.user %></h6>
+          <%} %>
         </div>
         <div class="card-body">
           <h5 class="card-title"><%= poll.title %></h5>
