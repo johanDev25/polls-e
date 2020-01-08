@@ -5,7 +5,14 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./src/index.js",
-    "start": "node ./src/index.js"
+    "start": "node ./src/index.js",
+    "test": "cross-env MONGODB_URI=mongodb://localhost:27017/node-polls jest --forceExit"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -23,7 +30,11 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
+    "cross-env": "^6.0.3",
+    "jest": "^24.9.0",
     "nodemon": "^2.0.2",
-    "puppeteer": "^2.0.0"
+    "puppeteer": "^2.0.0",
+    "superagent": "^5.2.1",
+    "supertest": "^4.0.2"
   }
 }
