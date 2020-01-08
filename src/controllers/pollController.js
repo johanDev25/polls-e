@@ -69,9 +69,6 @@ pollsCrtl.deletePoll = async (req,res, next)=> {
 pollsCrtl.getMessage = async (req,res, next)=> {
     req.flash('deleted', 'Encuesta eliminada');
     res.redirect("/");
-  } catch (e) {
-    return next(e)
-  }
 }
 
 
