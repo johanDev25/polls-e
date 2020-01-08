@@ -2,6 +2,13 @@ const pollsCrtl = {};
 
 const Poll = require('../models/Poll');
 
+function isAuthenticated(req, res, next) {
+  if(req.isAuthenticated()) {
+    return next();
+  }
+
+  res.redirect('/')
+}
 
 pollsCrtl.getPolls = async (req,res, next)=> {
   const polls = await Poll.find();
@@ -9,8 +16,12 @@ pollsCrtl.getPolls = async (req,res, next)=> {
 }
 
 
-pollsCrtl.getForm = isAuthenticated, (req,res, next)=> {
-  res.render("new")
+pollsCrtl.getForm = (req,res, next)=> {
+  if(req.isAuthenticated()) {
+    res.render("new")
+  }else{
+    res.redirect("/");
+  }
 }
 
 pollsCrtl.createPoll = async (req,res, next)=> {
@@ -63,7 +74,7 @@ pollsCrtl.deletePoll = async (req,res, next)=> {
   }
 }
 
-pollsCrtl.getMessage = isAuthenticated, async (req,res, next)=> {
+pollsCrtl.getMessage = async (req,res, next)=> {
   try {
     req.flash('deleted', 'Encuesta eliminada');
     res.redirect("/");
@@ -73,12 +84,5 @@ pollsCrtl.getMessage = isAuthenticated, async (req,res, next)=> {
 }
 
 
-function isAuthenticated(req, res, next) {
-  if(req.isAuthenticated()) {
-    return next();
-  }
-
-  res.redirect('/')
-}
 
 module.exports = pollsCrtl;
