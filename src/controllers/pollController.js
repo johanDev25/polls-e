@@ -2,14 +2,6 @@ const pollsCrtl = {};
 
 const Poll = require('../models/Poll');
 
-function isAuthenticated(req, res, next) {
-  if(req.isAuthenticated()) {
-    return next();
-  }
-
-  res.redirect('/')
-}
-
 pollsCrtl.getPolls = async (req,res, next)=> {
   const polls = await Poll.find();
   res.render("index", { polls: polls })
@@ -75,7 +67,6 @@ pollsCrtl.deletePoll = async (req,res, next)=> {
 }
 
 pollsCrtl.getMessage = async (req,res, next)=> {
-  try {
     req.flash('deleted', 'Encuesta eliminada');
     res.redirect("/");
   } catch (e) {
